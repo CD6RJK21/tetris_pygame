@@ -257,7 +257,6 @@ def main_menu(screen):
         intro_rect.top = text_coord_y
         intro_rect.x = text_coord_x - intro_rect.width // 2
         screen.blit(string_rendered, intro_rect)
-    # TODO: made black background for text in main menu
     left_arrow = FlickeringSprite(load_image('flickering_arrow_l.png'), WIDTH // 2 - 185, HEIGHT // 2 - HEIGHT // 8 + 47)
     right_arrow = FlickeringSprite(load_image('flickering_arrow_r.png'), WIDTH // 2 + 150, HEIGHT // 2 - HEIGHT // 8 + 47)
     active_button = 'start'
@@ -291,6 +290,7 @@ def main_menu(screen):
             left_arrow.rect.x, left_arrow.rect.y = WIDTH // 2 - 95, HEIGHT // 2 - HEIGHT // 8 + 100
             right_arrow.rect.x, right_arrow.rect.y = WIDTH // 2 + 55, HEIGHT // 2 - HEIGHT // 8 + 100
         text_coord_y = HEIGHT // 2 - HEIGHT // 8
+        pygame.draw.rect(screen, (0, 0, 0), (WIDTH // 2 - 190, HEIGHT // 2 - HEIGHT // 8 + 10, 373, 150))
         for line in text:
             string_rendered = font.render(line, 1, pygame.Color('white'))
             intro_rect = string_rendered.get_rect()
@@ -312,7 +312,7 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode(resolution)
     pygame.display.set_caption('Tetris')
     clock = pygame.time.Clock()
-    pygame.key.set_repeat(100, 70)  # TODO: config key repeat delay
+    pygame.key.set_repeat(100, 70)
 
     font = pygame.font.Font(os.path.join('font', 'PressStart2P.ttf'), 34)
     background = load_image('background.png')
@@ -335,7 +335,6 @@ if __name__ == '__main__':
     menu_running = True
     while menu_running:
         randomizer.reset()
-        display_menu = True
         pygame.mixer.music.load('data/korobeiniki.mp3')
         pygame.mixer.music.set_volume(0.8)
         pygame.mixer.music.play(-1)
@@ -429,8 +428,8 @@ if __name__ == '__main__':
                 if collided:
                     current_letter.move_up()
                     grid.update(current_letter.get_coords(), current_letter.get_color_index())
-                    # increase difficulty level every time 4000 points are claimed
-                    if grid.get_score() / 4000 >= difficulty_level:
+                    # increase difficulty level every time 2000 points are claimed
+                    if grid.get_score() / 2000 >= difficulty_level:
                         difficulty_level += 1
                         letter_move_time *= DIFFICULTY
 
