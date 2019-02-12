@@ -421,6 +421,14 @@ if __name__ == '__main__':
                                 pause = False
                             elif event.type == pygame.QUIT:
                                 exit()
+                            screen.blit(score_surface, score_coord)
+                            screen.blit(level_surface, level_coord)
+                            screen.blit(time_surface, time_coord)
+                            screen.blit(next_surface, next_coord)
+                            screen.blit(highscore_surface, highscore_coord)
+                            next_letter.show(screen, blocks)
+                            grid.show(screen, blocks)
+                            current_letter.show(screen, blocks)
                             grid.display_message(screen, font, (255, 255, 255), 'PAUSE')
                             pygame.display.flip()
                             pygame.display.update()
