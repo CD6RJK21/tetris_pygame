@@ -307,7 +307,7 @@ def main_menu(screen):
 
 
 if __name__ == '__main__':
-    pygame.mixer.pre_init(44100, -16, 1, 512)
+    pygame.mixer.pre_init(44100, -16, 2, 4096)
     pygame.init()
     screen = pygame.display.set_mode(resolution)
     pygame.display.set_caption('Tetris')
@@ -336,7 +336,7 @@ if __name__ == '__main__':
     while menu_running:
         randomizer.reset()
         pygame.mixer.music.load('data/korobeiniki.mp3')
-        pygame.mixer.music.set_volume(0.8)
+        pygame.mixer.music.set_volume(0.5)
         pygame.mixer.music.play(-1)
         main_menu(screen)
 
@@ -449,8 +449,6 @@ if __name__ == '__main__':
             level_string = str(difficulty_level)
             level_surface = write(font, level_string, (255, 255, 255))
 
-            # Draw
-            # screen.blit(background, (0, 0))
             screen.blit(score_surface, score_coord)
             screen.blit(level_surface, level_coord)
             screen.blit(time_surface, time_coord)
@@ -471,4 +469,3 @@ if __name__ == '__main__':
             with open('highscores.txt', 'w') as file:
                 file.write(str(grid.get_score()) + '\n')
         pygame.mixer.music.stop()
-
