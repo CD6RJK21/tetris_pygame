@@ -1,6 +1,7 @@
-import pygame
-import random
 import os
+import random
+import pygame
+
 from shapes import *
 
 FPS = 60
@@ -256,8 +257,10 @@ def main_menu(screen):
         intro_rect.top = text_coord_y
         intro_rect.x = text_coord_x - intro_rect.width // 2
         screen.blit(string_rendered, intro_rect)
-    left_arrow = FlickeringSprite(load_image('flickering_arrow_l.png'), WIDTH // 2 - 185, HEIGHT // 2 - HEIGHT // 8 + 47)
-    right_arrow = FlickeringSprite(load_image('flickering_arrow_r.png'), WIDTH // 2 + 150, HEIGHT // 2 - HEIGHT // 8 + 47)
+    left_arrow = FlickeringSprite(load_image('flickering_arrow_l.png'), WIDTH // 2 - 185,
+                                  HEIGHT // 2 - HEIGHT // 8 + 47)
+    right_arrow = FlickeringSprite(load_image('flickering_arrow_r.png'), WIDTH // 2 + 150,
+                                   HEIGHT // 2 - HEIGHT // 8 + 47)
     active_button = 'start'
     while True:
         screen.blit(background, (0, 0))
@@ -456,8 +459,8 @@ if __name__ == '__main__':
                     sound['letter_place'].play()
                     current_letter.move_up()
                     grid.update(current_letter.get_coords(), current_letter.get_color_index())
-                    # increase difficulty level every time 2000 points are claimed
-                    if grid.get_score() / 2000 >= difficulty_level:
+                    # increase difficulty level every time 1500 points are claimed
+                    if grid.get_score() / 1500 >= difficulty_level:
                         difficulty_level += 1
                         letter_move_time *= DIFFICULTY
 
@@ -474,7 +477,7 @@ if __name__ == '__main__':
                 highscore = str(grid.get_score())
                 highscore_surface = write(font, highscore, (255, 255, 255))
             total_time += frame_time
-            time_string = "TIME " + '{0:02d}'.format(int(total_time // 60))\
+            time_string = "TIME " + '{0:02d}'.format(int(total_time // 60)) \
                           + ":" + '{0:02d}'.format(int(total_time % 60))
             time_surface = write(font, time_string, (255, 255, 255))
 

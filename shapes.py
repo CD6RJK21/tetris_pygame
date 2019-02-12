@@ -1,140 +1,140 @@
 class FlyingLetter:
     i_letter_angle_0 = ["....",
-                           "####",
-                           "....",
-                           "...."]
+                        "####",
+                        "....",
+                        "...."]
 
     # rotate 90 degrees cw (clockwise)
     i_letter_angle_90 = [".#..",
-                            ".#..",
-                            ".#..",
-                            ".#.."]
+                         ".#..",
+                         ".#..",
+                         ".#.."]
 
     i_letter = (i_letter_angle_0, i_letter_angle_90,
-                   i_letter_angle_0, i_letter_angle_90)
+                i_letter_angle_0, i_letter_angle_90)
 
     # O letter
     o_letter_angle_0 = ["##..",
-                           "##..",
-                           "....",
-                           "...."]
+                        "##..",
+                        "....",
+                        "...."]
 
     o_letter = (o_letter_angle_0, o_letter_angle_0,
-                   o_letter_angle_0, o_letter_angle_0)
+                o_letter_angle_0, o_letter_angle_0)
 
     # T letter
     t_letter_angle_0 = [".#..",
-                           "###.",
-                           "....",
-                           "...."]
+                        "###.",
+                        "....",
+                        "...."]
 
     # rotate 90 degrees cw
     t_letter_angle_90 = [".#..",
-                            ".##.",
-                            ".#..",
-                            "...."]
+                         ".##.",
+                         ".#..",
+                         "...."]
 
     # rotate 180 degrees cw
     t_letter_angle_180 = ["....",
-                             "###.",
-                             ".#..",
-                             "...."]
+                          "###.",
+                          ".#..",
+                          "...."]
 
     # rotate 270 degrees cw
     t_letter_angle_270 = [".#..",
-                             "##..",
-                             ".#..",
-                             "...."]
+                          "##..",
+                          ".#..",
+                          "...."]
 
     t_letter = (t_letter_angle_0, t_letter_angle_90,
-                   t_letter_angle_180, t_letter_angle_270)
+                t_letter_angle_180, t_letter_angle_270)
 
     # J letter
     j_letter_angle_0 = ["#...",
-                           "###.",
-                           "....",
-                           "...."]
+                        "###.",
+                        "....",
+                        "...."]
 
     # rotate 90 degrees cw
     j_letter_angle_90 = [".##.",
-                            ".#..",
-                            ".#..",
-                            "...."]
+                         ".#..",
+                         ".#..",
+                         "...."]
 
     # rotate 180 degrees cw
     j_letter_angle_180 = ["....",
-                             "###.",
-                             "..#.",
-                             "...."]
+                          "###.",
+                          "..#.",
+                          "...."]
 
     # rotate 270 degrees cw
     j_letter_angle_270 = [".#..",
-                             ".#..",
-                             "##..",
-                             "...."]
+                          ".#..",
+                          "##..",
+                          "...."]
 
     j_letter = (j_letter_angle_0, j_letter_angle_90,
-                   j_letter_angle_180, j_letter_angle_270)
+                j_letter_angle_180, j_letter_angle_270)
 
     # L letter cw
     l_letter_angle_0 = ["..#.",
-                           "###.",
-                           "....",
-                           "...."]
+                        "###.",
+                        "....",
+                        "...."]
 
     # rotate 90 degrees cw
     l_letter_angle_90 = [".#..",
-                            ".#..",
-                            ".##.",
-                            "...."]
+                         ".#..",
+                         ".##.",
+                         "...."]
 
     # rotate 180 degrees cw
     l_letter_angle_180 = ["....",
-                             "###.",
-                             "#...",
-                             "...."]
+                          "###.",
+                          "#...",
+                          "...."]
 
     # rotate 270 degrees cw
     l_letter_angle_270 = ["##..",
-                             ".#..",
-                             ".#..",
-                             "...."]
+                          ".#..",
+                          ".#..",
+                          "...."]
 
     l_letter = (l_letter_angle_0, l_letter_angle_90,
-                   l_letter_angle_180, l_letter_angle_270)
+                l_letter_angle_180, l_letter_angle_270)
 
     # S letter
     s_letter_angle_0 = [".##.",
-                           "##..",
-                           "....",
-                           "...."]
+                        "##..",
+                        "....",
+                        "...."]
 
     # rotate 90 degrees cw
     s_letter_angle_90 = [".#..",
-                            ".##.",
-                            "..#.",
-                            "...."]
+                         ".##.",
+                         "..#.",
+                         "...."]
 
     s_letter = (s_letter_angle_0, s_letter_angle_90,
-                   s_letter_angle_0, s_letter_angle_90)
+                s_letter_angle_0, s_letter_angle_90)
 
     # Z letter
     z_letter_angle_0 = ["##..",
-                           ".##.",
-                           "....",
-                           "...."]
+                        ".##.",
+                        "....",
+                        "...."]
 
     # rotate 90 degrees cw
     z_letter_angle_90 = ["..#.",
-                            ".##.",
-                            ".#..",
-                            "...."]
+                         ".##.",
+                         ".#..",
+                         "...."]
 
     z_letter = (z_letter_angle_0, z_letter_angle_90,
-                   z_letter_angle_0, z_letter_angle_90)
+                z_letter_angle_0, z_letter_angle_90)
 
     letters = (i_letter, o_letter, t_letter, j_letter,
-                   l_letter, s_letter, z_letter)
+               l_letter, s_letter, z_letter)
 
     fast_move_time = 0.03  # seconds
 
