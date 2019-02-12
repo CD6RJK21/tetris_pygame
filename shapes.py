@@ -161,11 +161,6 @@ class FlyingLetter:
         self.elapsed_time = 0.0
 
     def build(self):
-        """
-        Calculates the coordinates of each block that is part of the letter.
-        center block index is (1, 1)
-        :return: list of coordinates [x, y] or empty list if a block is out of bounds
-        """
         x, y = [self.center_coord[0] - self.block_width, self.center_coord[1]
                 - self.block_height]
         letter_coords = []
@@ -200,11 +195,6 @@ class FlyingLetter:
         self.move_time = self.normal_move_time
 
     def show(self, screen, color_blocks):
-        """
-        Display all blocks.
-        :param screen: screen surface
-        :param color_blocks: block surfaces tuple
-        """
         for coord in self.blocks_coords:
             screen.blit(color_blocks[self.random_index], coord)
 
@@ -214,9 +204,6 @@ class FlyingLetter:
         self.center_coord[1] -= self.block_height
 
     def move_down(self, time):
-        """
-        Move down all blocks.
-        """
         self.elapsed_time += time
         if self.elapsed_time >= self.move_time:
             self.elapsed_time = 0
@@ -225,25 +212,16 @@ class FlyingLetter:
             self.center_coord[1] += self.block_height
 
     def move_left(self):
-        """
-        Move left all blocks.
-        """
         self.center_coord[0] -= self.block_width
         for coord in self.blocks_coords:
             coord[0] -= self.block_width
 
     def move_right(self):
-        """
-        Move right all blocks.
-        """
         self.center_coord[0] += self.block_width
         for coord in self.blocks_coords:
             coord[0] += self.block_width
 
     def rotate_ccw(self):
-        """
-        Rotate the letter 90 degrees counterclockwise.
-        """
         if self.current_angle == 0:
             self.current_angle = 3
         else:
@@ -253,9 +231,6 @@ class FlyingLetter:
         self.blocks_coords = self.build()
 
     def rotate_cw(self):
-        """
-        Rotate the letter 90 degrees clockwise.
-        """
         self.current_angle = (self.current_angle + 1) % 4
         self.current_frame = self.random_letter[self.current_angle]
         self.blocks_coords = self.build()

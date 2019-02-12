@@ -155,7 +155,6 @@ class Grid:
         score = 0
         # search for full rows
         for row_index, column_index in indexes_list:
-            # check game over
             if row_index == 0:  # there is a block at the first row
                 self.game_over = True
 
