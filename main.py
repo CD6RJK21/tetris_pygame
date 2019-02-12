@@ -12,7 +12,6 @@ columns = 10
 rows = 20
 
 START_MOVE_TIME = 60
-MOVE_TIME_INCREASE = 1.5
 DIFFICULTY = 0.85
 
 
@@ -385,6 +384,9 @@ if __name__ == '__main__':
                 if event.type == pygame.QUIT:
                     exit()
                 elif event.type == pygame.KEYDOWN:
+                    pressed = pygame.key.get_pressed()
+                    if pressed[pygame.K_F4] and pressed[pygame.K_LALT]:
+                        exit()
                     if event.key == pygame.K_ESCAPE:
                         game_running = False
                     elif event.key == pygame.K_RIGHT:
