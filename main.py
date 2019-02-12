@@ -225,7 +225,6 @@ class Grid:
         text_x = self.min_coord[0] + (self.area_width - text_surface.get_width()) / 2
         text_y = (self.min_coord[1] + self.area_height) / 2
         screen.blit(text_surface, (text_x, text_y))
-        pygame.display.flip()
 
     def get_score(self):
         return self.score
@@ -329,7 +328,12 @@ if __name__ == '__main__':
               load_image('tile2.png'), load_image('tile3.png'), load_image('tile1.png')]
     sound = {'menu_move': pygame.mixer.Sound('data/menu_move.ogg'),
              'menu_chose': pygame.mixer.Sound('data/menu_chose.ogg'),
-             'game_end': pygame.mixer.Sound('data/game_end.ogg')
+             'game_end': pygame.mixer.Sound('data/game_end.ogg'),
+             'new_highscore': pygame.mixer.Sound('data/new_highscore.ogg'),
+             'pause': pygame.mixer.Sound('data/pause.ogg'),
+             'letter_place': pygame.mixer.Sound('data/letter_place.ogg'),
+             'rotate': pygame.mixer.Sound('data/rotate.ogg'),
+             'letter_move': pygame.mixer.Sound('data/letter_move.ogg')
              }
     next_letter_coord = (442, 430)
     next_coord = (next_letter_coord[0] - 10, next_letter_coord[1] - 3 * TILESIZE)
@@ -356,6 +360,7 @@ if __name__ == '__main__':
             highscore = '0'
 
         highscore_surface = write(font, highscore, (255, 255, 255))
+        highscore_played = False
         next_surface = write(font, "", (0, 0, 0))
         grid = Grid(columns, rows, (TILESIZE, TILESIZE), resolution)
         letter_move_time = 1
@@ -380,22 +385,26 @@ if __name__ == '__main__':
                     if event.key == pygame.K_ESCAPE:
                         game_running = False
                     elif event.key == pygame.K_RIGHT:
+                        sound['letter_move'].play()
                         current_letter.move_right()
                         if grid.is_out_of_bounds(current_letter.get_coords()) or \
                                 grid.collided(current_letter.get_coords()):
                             current_letter.move_left()
                     elif event.key == pygame.K_LEFT:
+                        sound['letter_move'].play()
                         current_letter.move_left()
                         if grid.is_out_of_bounds(current_letter.get_coords()) or \
                                 grid.collided(current_letter.get_coords()):
                             current_letter.move_right()
                     elif event.key == pygame.K_DOWN:
+                        sound['rotate'].play()
                         current_letter.rotate_ccw()
                         # if letter collides or it is out of bounds undo rotate counterclockwise
                         if grid.is_out_of_bounds(current_letter.get_coords()) or \
                                 grid.collided(current_letter.get_coords()):
                             current_letter.rotate_cw()
                     elif event.key == pygame.K_UP:
+                        sound['rotate'].play()
                         current_letter.rotate_cw()
                         # if letter collides or it is out of bounds undo rotate clockwise
                         if grid.is_out_of_bounds(current_letter.get_coords()) or \
@@ -404,14 +413,17 @@ if __name__ == '__main__':
                     elif event.key == pygame.K_SPACE:
                         current_letter.speed_up()
                     elif event.key == pygame.K_p:
+                        sound['pause'].play()
                         pause = True
-                        grid.display_message(screen, font, (0, 0, 0), 'PAUSE')
                         while pause:
                             event = pygame.event.wait()
                             if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
                                 pause = False
                             elif event.type == pygame.QUIT:
                                 exit()
+                            grid.display_message(screen, font, (255, 255, 255), 'PAUSE')
+                            pygame.display.flip()
+                            pygame.display.update()
                         game_paused = True
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_SPACE:
@@ -433,6 +445,7 @@ if __name__ == '__main__':
                         break
 
                 if collided:
+                    sound['letter_place'].play()
                     current_letter.move_up()
                     grid.update(current_letter.get_coords(), current_letter.get_color_index())
                     # increase difficulty level every time 2000 points are claimed
@@ -446,6 +459,12 @@ if __name__ == '__main__':
                     next_letter = FlyingLetter((TILESIZE, TILESIZE), next_letter_coord, letter_move_time, randomizer)
                 game_running = not grid.is_game_over()
                 accumulator -= dt
+            if grid.get_score() > int(highscore):
+                if not highscore_played:
+                    sound['new_highscore'].play()
+                    highscore_played = True
+                highscore = str(grid.get_score())
+                highscore_surface = write(font, highscore, (255, 255, 255))
             total_time += frame_time
             time_string = "TIME " + '{0:02d}'.format(int(total_time // 60))\
                           + ":" + '{0:02d}'.format(int(total_time % 60))
