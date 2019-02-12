@@ -268,16 +268,19 @@ def main_menu(screen):
                 exit()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
+                    sound['menu_chose'].play()
                     if active_button == 'start':
                         return
                     elif active_button == 'exit':
                         exit()
                 elif event.key == pygame.K_DOWN:
+                    sound['menu_move'].play()
                     if active_button == 'start':
                         active_button = 'exit'
                     else:
                         active_button = 'start'
                 elif event.key == pygame.K_UP:
+                    sound['menu_move'].play()
                     if active_button == 'start':
                         active_button = 'exit'
                     else:
@@ -307,7 +310,7 @@ def main_menu(screen):
 
 
 if __name__ == '__main__':
-    pygame.mixer.pre_init(44100, -16, 2, 4096)
+    pygame.mixer.pre_init(44100, -16, 1, 512)
     pygame.init()
     screen = pygame.display.set_mode(resolution)
     pygame.display.set_caption('Tetris')
@@ -324,6 +327,10 @@ if __name__ == '__main__':
 
     blocks = [load_image('tile1.png'), load_image('tile2.png'), load_image('tile3.png'), load_image('tile1.png'),
               load_image('tile2.png'), load_image('tile3.png'), load_image('tile1.png')]
+    sound = {'menu_move': pygame.mixer.Sound('data/menu_move.ogg'),
+             'menu_chose': pygame.mixer.Sound('data/menu_chose.ogg'),
+             'game_end': pygame.mixer.Sound('data/game_end.ogg')
+             }
     next_letter_coord = (442, 430)
     next_coord = (next_letter_coord[0] - 10, next_letter_coord[1] - 3 * TILESIZE)
     top_left = (380, 156)
@@ -335,7 +342,7 @@ if __name__ == '__main__':
     menu_running = True
     while menu_running:
         randomizer.reset()
-        pygame.mixer.music.load('data/korobeiniki.mp3')
+        pygame.mixer.music.load('data/korobeiniki.ogg')
         pygame.mixer.music.set_volume(0.5)
         pygame.mixer.music.play(-1)
         main_menu(screen)
@@ -462,6 +469,7 @@ if __name__ == '__main__':
             clock.tick(FPS)
             pygame.display.flip()
 
+        sound['game_end'].play()
         if os.path.isfile('highscores.txt'):
             with open('highscores.txt', 'a') as file:
                 file.write(str(grid.get_score()) + '\n')
