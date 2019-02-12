@@ -336,6 +336,9 @@ if __name__ == '__main__':
     while menu_running:
         randomizer.reset()
         display_menu = True
+        pygame.mixer.music.load('data/korobeiniki.mp3')
+        pygame.mixer.music.set_volume(0.8)
+        pygame.mixer.music.play(-1)
         main_menu(screen)
 
         if os.path.isfile('highscores.txt'):
@@ -468,4 +471,5 @@ if __name__ == '__main__':
         else:
             with open('highscores.txt', 'w') as file:
                 file.write(str(grid.get_score()) + '\n')
+        pygame.mixer.music.stop()
 
