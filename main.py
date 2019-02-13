@@ -1,5 +1,6 @@
 import os
 import random
+
 import pygame
 
 from shapes import *
@@ -181,34 +182,6 @@ class Grid:
         else:
             self.score += score * 4 * 150
 
-    def get_assist_coords(self, letter_coords):
-        indexes_list = self.convert_coords(letter_coords)
-        bottom = False
-        collided = False
-
-        # letter reached bottom
-        for row_index, column_index in indexes_list:
-            if row_index >= self.rows - 1:
-                return letter_coords
-
-        while not bottom and not collided:
-            # for every block
-            for i in range(len(indexes_list)):
-                row_index, column_index = indexes_list[i]
-                indexes_list[i] = (row_index + 1, column_index)
-                # check next row
-                if self.grid[row_index + 1][column_index] >= 0:
-                    collided = True
-                elif row_index + 1 >= self.rows - 1:
-                    bottom = True
-
-        if collided:
-            i = 0
-            for row_index, column_index in indexes_list:
-                indexes_list[i] = (row_index - 1, column_index)
-                i += 1
-        return self.convert_indexes(indexes_list)
-
     def show(self, screen, color_blocks):
         screen.blit(self.background, self.min_coord)
         for i in range(self.rows):
@@ -372,7 +345,7 @@ if __name__ == '__main__':
         clock = pygame.time.Clock()
         total_time = 0.0
         difficulty_level = 1
-        dt = 1.0 / FPS
+        time_to_move = 1.0 / FPS
         accumulator = 0.0
         game_running = True
         game_paused = drop_tetromino = False
@@ -443,15 +416,15 @@ if __name__ == '__main__':
                         current_letter.reset_speed()
 
             if game_paused:
-                frame_time = dt
+                frame_time = time_to_move
                 game_paused = False
                 clock.tick(FPS)
             else:
-                frame_time = clock.tick(FPS) / 1000.0  # convert to seconds
+                frame_time = clock.tick(FPS) / 500.0  # convert to seconds
             accumulator += frame_time
-            while accumulator >= dt and game_running:
+            while accumulator >= time_to_move and game_running:
                 while True:
-                    current_letter.move_down(dt)
+                    current_letter.move_down(time_to_move)
                     collided = grid.collided(current_letter.get_coords())
                     if not drop_tetromino or collided:
                         drop_tetromino = False
@@ -471,7 +444,7 @@ if __name__ == '__main__':
                     current_letter.set_speed(letter_move_time)
                     next_letter = FlyingLetter((TILESIZE, TILESIZE), next_letter_coord, letter_move_time, randomizer)
                 game_running = not grid.is_game_over()
-                accumulator -= dt
+                accumulator -= time_to_move
             if grid.get_score() > int(highscore):
                 if not highscore_played:
                     sound['new_highscore'].play()

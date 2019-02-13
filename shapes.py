@@ -136,7 +136,7 @@ class FlyingLetter:
     letters = (i_letter, o_letter, t_letter, j_letter,
                l_letter, s_letter, z_letter)
 
-    fast_move_time = 0.03  # seconds
+    fast_move_time = 0.03  # in seconds
 
     def __init__(self, block_dimensions, coord, move_time, randomizer):
         self.random_index = randomizer.get_number()
